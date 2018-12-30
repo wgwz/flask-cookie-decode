@@ -1,2 +1,87 @@
 Flask-Decode
-============
+############
+
+.. contents::
+
+.. section-numbering::
+
+Purpose
+=======
+
+Provides a ``decode`` in the built-in Flask CLI for decoding and verifying the
+signature of the Flask session cookie.
+
+Background
+==========
+
+By default the Flask session uses a signed cookie to store its data. The Flask
+application signs the cookie using its ``SECRET_KEY``. This provides the Flask
+application a way to detect any tampering to the session data. If the application
+is indeed using a secret key and secure hashing algorithm, the session signature
+will be unique to application. 
+
+At times during development or when a user encounters an error, you might want to
+inspect the session cookie. This extension looks to provide an easy-to-use interface
+for inspecting session cookies for development and debugging purposes.
+
+For more on the topic of the Flask session see these references:
+
+* `How Secure Is The Flask User Session?`_
+* `Quickstart for Flask Sessions`_
+* `API Docs for Flask Sessions`_
+
+Usage
+=====
+
+Extracting the cookie using browser tools
+-----------------------------------------
+
+.. image:: ../docs/cookie.png
+    :alt: Finding the cookie in browser tools
+    :width: 100%
+    :align: center
+
+Using the CLI
+-------------
+
+Example ``app.py``:
+
+.. code-block:: python 
+
+    from flask import Flask, jsonify, session, request
+    from flask_decode import FlaskDecode
+
+    app = Flask(__name__)
+    app.config.update({'SECRET_KEY': 'jlghasdghasdhgahsdg'})
+    flask_decode = FlaskDecode()
+    flask_decode.init_app(app)
+
+    @app.route('/')
+    def index():
+        a = request.args.get('a')
+        session['a'] = a
+        return jsonify(dict(session))
+
+Using the CLI:
+
+.. code-block:: bash
+
+    $ export FLASK_APP=app.py
+    $ flask decode eyJhIjoiYXNkYXNkamtqYXNkIn0.XCkk1Q.tTPu2Zhvn9KxgkP35ERAgyd8MzA
+    {'a': 'asdasdjkjasd'}
+
+Include expiration timestamp:
+
+.. code-block:: bash
+
+    $ flask decode --timestamp eyJhIjoiYXNkYXNkamtqYXNkIn0.XCkk1Q.tTPu2Zhvn9KxgkP35ERAgyd8MzA
+    ({'a': 'asdasdjkjasd'}, datetime.datetime(2018, 12, 30, 20, 4, 37))
+
+Documentation
+=============
+
+* `readthedocs <https://flask-decode.readthedocs.io/en/latest/>`_
+
+.. _`How Secure Is The Flask User Session?`: https://blog.miguelgrinberg.com/post/how-secure-is-the-flask-user-session
+.. _`Quickstart for Flask Sessions`: http://flask.pocoo.org/docs/1.0/quickstart/#sessions
+.. _`API Docs for Flask Sessions`: http://flask.pocoo.org/docs/1.0/api/#sessions
