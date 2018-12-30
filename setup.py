@@ -19,7 +19,7 @@ test_requirements = [
 
 setup(
     name='flask_decode',
-    version='0.1.1',
+    version='0.1.2',
     description="Tools for debugging and working with the built-in Flask session cookie",
     long_description=readme + '\n\n' + history,
     author="Kyle Lawlor",
