@@ -36,6 +36,13 @@ For more on the topic of the Flask session see these references:
 Usage
 =====
 
+Installation
+------------
+
+.. code-block: bash
+
+    $ pip install flask-decode
+
 Extracting the cookie using browser tools
 -----------------------------------------
 
