@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -14,7 +14,11 @@ requirements = [
 ]
 
 test_requirements = [
-    # TODO: put package test requirements here
+    'pytest'
+]
+
+setup_requirements = [
+    'pytest-runner'
 ]
 
 setup(
@@ -25,9 +29,7 @@ setup(
     author="Kyle Lawlor",
     author_email='klawlor419@gmail.com',
     url='https://github.com/wgwz/flask-decode',
-    packages=[
-        'flask_decode',
-    ],
+    packages=find_packages(),
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
@@ -45,6 +47,6 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
-    test_suite='tests',
-    tests_require=test_requirements
+    tests_require=test_requirements,
+    setup_requires=setup_requirements
 )
