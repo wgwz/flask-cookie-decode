@@ -10,7 +10,7 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'Flask>=0.10'
+    'Flask>=0.11'
 ]
 
 test_requirements = [
