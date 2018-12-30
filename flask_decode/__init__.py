@@ -13,7 +13,7 @@
 
 __author__ = """Kyle Lawlor"""
 __email__ = 'klawlor419@gmail.com'
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 
 from .flask_decode import FlaskDecode
