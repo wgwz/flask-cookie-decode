@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/wgwz/flask_decode/issues.
+Report bugs at https://github.com/wgwz/flask-decode/issues.
 
 If you are reporting a bug, please include:
 
