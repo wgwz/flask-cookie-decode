@@ -39,7 +39,7 @@ Usage
 Installation
 ------------
 
-.. code-block: bash
+.. code-block:: bash
 
     $ pip install flask-decode
 
