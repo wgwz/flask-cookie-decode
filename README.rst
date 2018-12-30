@@ -39,7 +39,7 @@ Usage
 Extracting the cookie using browser tools
 -----------------------------------------
 
-.. image:: https://github.com/wgwz/flask-decode/blob/master/docs/cookie.png
+.. image:: https://raw.githubusercontent.com/wgwz/flask-decode/master/docs/cookie.png
     :alt: Finding the cookie in browser tools
     :width: 100%
     :align: center
