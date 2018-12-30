@@ -115,3 +115,18 @@ To run a subset of tests::
 
 $ pytest tests::test_flask_decode
 
+Making a release
+----------------
+
+1. Run the release commands::
+
+    $ git checkout master
+    $ bumpversion <major,minor,patch>
+    $ git tag -s v<latest-version> -m "tag message"
+    $ git checkout v<latest-version>
+    $ make dist
+    $ twine upload dist/*
+
+2. Go to github releases and upload wheel and tar.gz.
+
+3. Check travis, readthedocs and pypi.
