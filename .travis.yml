@@ -10,19 +10,11 @@ python:
   - 3.3
   - 2.7
 
-env:
-  - TOXENV=py37
-  - TOXENV=py36
-  - TOXENV=py35
-  - TOXENV=py34
-  - TOXENV=py33
-  - TOXENV=py27
-
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox
+install: pip install pytest
 
 # command to run tests, e.g. python setup.py test
-script: tox -e ${TOXENV}
+script: pytest
 
 # After you create the Github repo and add it to Travis, run the
 # travis_pypi_setup.py script to finish PyPI deployment setup
