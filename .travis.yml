@@ -5,12 +5,12 @@ language: python
 python: 3.5
 
 env:
+  - TOXENV=py37
+  - TOXENV=py36
   - TOXENV=py35
   - TOXENV=py34
   - TOXENV=py33
   - TOXENV=py27
-  - TOXENV=py26
-  - TOXENV=pypy
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -U tox
