@@ -1,6 +1,9 @@
 Flask-Decode
 ############
 
+.. image:: https://travis-ci.org/wgwz/flask-decode.svg?branch=master
+    :target: https://travis-ci.org/wgwz/flask-decode
+
 .. contents::
 
 .. section-numbering::
@@ -36,7 +39,7 @@ Usage
 Extracting the cookie using browser tools
 -----------------------------------------
 
-.. image:: ../docs/cookie.png
+.. image:: https://github.com/wgwz/flask-decode/blob/master/docs/cookie.png
     :alt: Finding the cookie in browser tools
     :width: 100%
     :align: center
@@ -81,6 +84,11 @@ Documentation
 =============
 
 * `readthedocs <https://flask-decode.readthedocs.io/en/latest/>`_
+
+License
+=======
+
+MIT: `LICENSE <https://github.com/wgwz/flask-decode/blob/master/LICENSE>`_.
 
 .. _`How Secure Is The Flask User Session?`: https://blog.miguelgrinberg.com/post/how-secure-is-the-flask-user-session
 .. _`Quickstart for Flask Sessions`: http://flask.pocoo.org/docs/1.0/quickstart/#sessions
