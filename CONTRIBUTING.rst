@@ -118,15 +118,34 @@ $ pytest tests::test_flask_decode
 Making a release
 ----------------
 
-1. Run the release commands::
+Automated build process
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Notes on the initial set up travis-ci.com::
+
+    $ travis logout
+    $ travis login --pro
+    $ travis encrypt --add deploy.password <pypi-password>
+
+1. Bump the version and create the tag::
 
     $ git checkout master
     $ bumpversion <major,minor,patch>
     $ git tag -s v<latest-version> -m "tag message"
+
+2. Push the tag, travis-ci will handle deployment to pypi. (see ``.travis.yml``)
+
+    $ git push origin v<latest-version>
+
+Manual build process
+~~~~~~~~~~~~~~~~~~~~
+
+Notes on manual upload of releases to pypi::
+
+1. Run the release commands::
+
     $ git checkout v<latest-version>
     $ make dist
     $ twine upload dist/*
 
-2. Go to github releases and upload wheel and tar.gz.
-
-3. Check travis, readthedocs and pypi.
+2. Go to github releases and upload wheel and tar.gz
