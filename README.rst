@@ -1,8 +1,8 @@
-Flask-Decode
+flask-cookie-decode
 ############
 
-.. image:: https://travis-ci.org/wgwz/flask-decode.svg?branch=master
-    :target: https://travis-ci.org/wgwz/flask-decode
+.. image:: https://travis-ci.org/wgwz/flask-cookie-decode.svg?branch=master
+    :target: https://travis-ci.org/wgwz/flask-cookie-decode
 
 .. contents::
 
@@ -41,12 +41,12 @@ Installation
 
 .. code-block:: bash
 
-    $ pip install flask-decode
+    $ pip install flask-cookie-decode
 
 Extracting the cookie using browser tools
 -----------------------------------------
 
-.. image:: https://raw.githubusercontent.com/wgwz/flask-decode/master/docs/cookie.png
+.. image:: https://raw.githubusercontent.com/wgwz/flask-cookie-decode/master/docs/cookie.png
     :alt: Finding the cookie in browser tools
     :width: 100%
     :align: center
@@ -59,12 +59,12 @@ Example ``app.py``:
 .. code-block:: python 
 
     from flask import Flask, jsonify, session, request
-    from flask_decode import FlaskDecode
+    from flask_cookie_decode import FlaskDecode
 
     app = Flask(__name__)
     app.config.update({'SECRET_KEY': 'jlghasdghasdhgahsdg'})
-    flask_decode = FlaskDecode()
-    flask_decode.init_app(app)
+    decode = FlaskDecode()
+    decode.init_app(app)
 
     @app.route('/')
     def index():
@@ -90,12 +90,12 @@ Include expiration timestamp:
 Documentation
 =============
 
-* `readthedocs <https://flask-decode.readthedocs.io/en/latest/>`_
+* `readthedocs <https://flask-cookie-decode.readthedocs.io/en/latest/>`_
 
 License
 =======
 
-MIT: `LICENSE <https://github.com/wgwz/flask-decode/blob/master/LICENSE>`_.
+MIT: `LICENSE <https://github.com/wgwz/flask-cookie-decode/blob/master/LICENSE>`_.
 
 .. _`How Secure Is The Flask User Session?`: https://blog.miguelgrinberg.com/post/how-secure-is-the-flask-user-session
 .. _`Quickstart for Flask Sessions`: http://flask.pocoo.org/docs/1.0/quickstart/#sessions

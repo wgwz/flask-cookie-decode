@@ -22,19 +22,19 @@ setup_requirements = [
 ]
 
 setup(
-    name='flask_decode',
+    name='flask_cookie_decode',
     version='0.1.4',
     description="Tools for debugging and working with the built-in Flask session cookie",
     long_description=readme + '\n\n' + history,
     author="Kyle Lawlor",
     author_email='klawlor419@gmail.com',
-    url='https://github.com/wgwz/flask-decode',
+    url='https://github.com/wgwz/flask-cookie-decode',
     packages=find_packages(),
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
     zip_safe=False,
-    keywords='flask_decode',
+    keywords='flask_cookie_decode',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',

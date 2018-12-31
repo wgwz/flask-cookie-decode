@@ -40,7 +40,7 @@ class FlaskDecode:
         self.session_interface = SecureCookieSessionInterface()
         self.s = self.session_interface.get_signing_serializer(app)
 
-        app.extensions['flask_decode'] = self
+        app.extensions['flask_cookie_decode'] = self
 
         @app.cli.command()
         @click.option('--timestamp/--no-timestamp', default=False)

@@ -1,4 +1,4 @@
-* Flask-Decode version:
+* flask-cookie-decode version:
 * Python version:
 * Operating System:
 
