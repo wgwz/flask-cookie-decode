@@ -137,14 +137,14 @@ See travis.rb_.
     $ bumpversion <major,minor,patch>
     $ git tag -s v<latest-version> -m "tag message"
 
-2. Push the tag, travis-ci will handle deployment to pypi. (see ``.travis.yml``)
+2. Push the tag, travis-ci will handle deployment to pypi. (see ``.travis.yml``)::
 
     $ git push origin v<latest-version>
 
 Manual build process
 ~~~~~~~~~~~~~~~~~~~~
 
-Notes on manual upload of releases to pypi::
+Notes on manual upload of releases to pypi:
 
 1. Run the release commands::
 
