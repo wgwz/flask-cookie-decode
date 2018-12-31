@@ -1,5 +1,5 @@
 flask-cookie-decode
-############
+###################
 
 .. image:: https://travis-ci.org/wgwz/flask-cookie-decode.svg?branch=master
     :target: https://travis-ci.org/wgwz/flask-cookie-decode
@@ -11,8 +11,12 @@ flask-cookie-decode
 Purpose
 =======
 
-Provides a ``decode`` in the built-in Flask CLI for decoding and verifying the
-signature of the Flask session cookie.
+Adds a ``cookie`` command to the built-in Flask CLI which will provide various
+tools for debugging the secure session cookie that Flask uses by default.
+
+Current available commands:
+
+* `flask cookie decode`: decodes and verifies the signature of the session cookie
 
 Background
 ==========
@@ -59,12 +63,12 @@ Example ``app.py``:
 .. code-block:: python 
 
     from flask import Flask, jsonify, session, request
-    from flask_cookie_decode import FlaskDecode
+    from flask_cookie_decode import CookieDecode
 
     app = Flask(__name__)
     app.config.update({'SECRET_KEY': 'jlghasdghasdhgahsdg'})
-    decode = FlaskDecode()
-    decode.init_app(app)
+    cookie = CookieDecode()
+    cookie.init_app(app)
 
     @app.route('/')
     def index():
@@ -77,14 +81,14 @@ Using the CLI:
 .. code-block:: bash
 
     $ export FLASK_APP=app.py
-    $ flask decode eyJhIjoiYXNkYXNkamtqYXNkIn0.XCkk1Q.tTPu2Zhvn9KxgkP35ERAgyd8MzA
+    $ flask cookie decode eyJhIjoiYXNkYXNkamtqYXNkIn0.XCkk1Q.tTPu2Zhvn9KxgkP35ERAgyd8MzA
     {'a': 'asdasdjkjasd'}
 
 Include expiration timestamp:
 
 .. code-block:: bash
 
-    $ flask decode --timestamp eyJhIjoiYXNkYXNkamtqYXNkIn0.XCkk1Q.tTPu2Zhvn9KxgkP35ERAgyd8MzA
+    $ flask cookie decode --timestamp eyJhIjoiYXNkYXNkamtqYXNkIn0.XCkk1Q.tTPu2Zhvn9KxgkP35ERAgyd8MzA
     ({'a': 'asdasdjkjasd'}, datetime.datetime(2018, 12, 30, 20, 4, 37))
 
 Documentation

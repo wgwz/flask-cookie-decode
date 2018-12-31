@@ -10,7 +10,7 @@ Tests for `flask_cookie_decode` module.
 """
 import datetime
 import pytest
-from flask_cookie_decode import FlaskDecode
+from flask_cookie_decode import CookieDecode
 
 foo_app_secret = 'jlghasdghasdhgahsdg' 
 
@@ -18,8 +18,8 @@ foo_app_secret = 'jlghasdghasdhgahsdg'
 def app():
     app = Flask(__name__)
     app.config.update({'SECRET_KEY': foo_app_secret})
-    flask_cookie_decode = FlaskDecode()
-    flask_cookie_decode.init_app(app)
+    cookie = CookieDecode()
+    cookie.init_app(app)
     return app
 
 foo_cookie = 'eyJhIjoiaGVsbG93b3JsZCJ9.XCfs8A.v910WSXgY5JhZJHZ_nCNCYsy2I0'
