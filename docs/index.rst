@@ -1,4 +1,4 @@
-Welcome to Flask-Decode's documentation!
+Welcome to flask-cookie-decode's documentation!
 ======================================
 
 Contents:

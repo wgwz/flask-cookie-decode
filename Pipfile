@@ -9,9 +9,10 @@ twine = "*"
 pytest = "*"
 restview = "*"
 sphinx = "*"
+tox = "*"
 
 [packages]
-flask-decode = {editable = true,path = "."}
+flask-cookie-decode = {editable = true,path = "."}
 
 [requires]
 python_version = "3.7"
