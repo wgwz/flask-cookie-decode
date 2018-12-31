@@ -1,4 +1,5 @@
 import click
+from itsdangerous.exc import BadTimeSignature
 from flask.cli import AppGroup
 from flask.sessions import SecureCookieSessionInterface
 
@@ -51,8 +52,20 @@ class CookieDecode:
         @click.argument('cookie')
         def decode(cookie, timestamp):
             """Decode a flask session cookie"""
-            click.echo(self.decode(cookie, return_timestamp=timestamp))
+            try:
+                click.echo(self.safe_decode(cookie, return_timestamp=timestamp))
+            except BadTimeSignature as exc:
+                click.echo(exc)
+                click.echo(self.unsafe_decode(cookie))
 
-    def decode(self, cookie, return_timestamp=False):
-        """"Load session cookie using underlying signing serializer"""
+    def safe_decode(self, cookie, return_timestamp=False):
+        """"Validates the signature and loads session the cookie.
+        
+        Uses the underlying itsdangerous ``URLSafeTimedSerializer``"""
         return self.s.loads(cookie, return_timestamp=return_timestamp)
+
+    def unsafe_decode(self, cookie):
+        """"Loads the session cookie even if the signature is invalid."""
+        is_safe, contents = self.s.loads_unsafe(cookie)
+        return contents
+
