@@ -1,28 +1,29 @@
 import click
+from flask.cli import AppGroup
 from flask.sessions import SecureCookieSessionInterface
 
 
-class FlaskDecode:
+class CookieDecode:
     """This class is used to inspect the signed-cookie session that Flask
     ships with.  Initializing this class follows the usual procedure::
 
         app = Flask(__name__)
-        decode = FlaskDecode(app)
+        cookie = CookieDecode(app)
 
     Or if you wish to create the object once and configure the application
     later to support it::
 
-        decode = FlaskDecode()
+        cookie = CookieDecode()
 
         def create_app():
             app = Flask(__name__)
-            decode.init_app(app)
+            cookie.init_app(app)
             return app
 
     Once the application has been initialized with the extension, a new command
     will be available via the Flask CLI::
 
-        flask decode
+        flask cookie decode <cookie-here>
 
     This command takes one argument, the Flask session cookie. The session cookie
     can be retrieved from a browser.
@@ -39,10 +40,13 @@ class FlaskDecode:
         """
         self.session_interface = SecureCookieSessionInterface()
         self.s = self.session_interface.get_signing_serializer(app)
+        
+        cookie_cli = AppGroup('cookie', help='Tools to inspect the Flask session cookie.')
+        app.cli.add_command(cookie_cli)
 
         app.extensions['flask_cookie_decode'] = self
 
-        @app.cli.command()
+        @cookie_cli.command('decode')
         @click.option('--timestamp/--no-timestamp', default=False)
         @click.argument('cookie')
         def decode(cookie, timestamp):

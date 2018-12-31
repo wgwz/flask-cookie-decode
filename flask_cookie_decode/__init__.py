@@ -2,7 +2,7 @@
 
 """
     flaskext.flask-cookie-decode
-    ---------------
+    ----------------------------
 
     Tools for debugging and working with the built-in Flask session cookie
 
@@ -16,4 +16,4 @@ __email__ = 'klawlor419@gmail.com'
 __version__ = '0.1.5'
 
 
-from .flask_cookie_decode import FlaskDecode
+from .cookie_decode import CookieDecode

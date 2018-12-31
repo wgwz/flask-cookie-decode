@@ -1,5 +1,5 @@
 Welcome to flask-cookie-decode's documentation!
-======================================
+===============================================
 
 Contents:
 
