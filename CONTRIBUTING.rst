@@ -127,6 +127,10 @@ Notes on the initial set up travis-ci.com::
     $ travis login --pro
     $ travis encrypt --add deploy.password <pypi-password>
 
+See travis.rb_.
+
+.. _travis.rb: https://github.com/travis-ci/travis.rb#installation
+
 1. Bump the version and create the tag::
 
     $ git checkout master
