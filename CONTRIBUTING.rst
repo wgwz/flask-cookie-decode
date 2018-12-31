@@ -125,11 +125,13 @@ Notes on the initial set up travis-ci.com::
 
     $ travis logout
     $ travis login --pro
-    $ travis encrypt --add deploy.password <pypi-password>
+    $ travis encrypt --add deploy.password <pypi-password> --com  # within the flask-cookie-decode repo
 
-See travis.rb_.
+See travis.rb_, dpl_ and `travis encryption keys`_ for more on the travis set up. 
 
 .. _travis.rb: https://github.com/travis-ci/travis.rb#installation
+.. _dpl: https://github.com/travis-ci/dpl#pypi
+.. _travis encryption keys: https://docs.travis-ci.com/user/encryption-keys/
 
 1. Bump the version and create the tag::
 
