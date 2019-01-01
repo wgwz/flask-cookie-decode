@@ -1,7 +1,11 @@
+from collections import namedtuple
 import click
 from itsdangerous.exc import BadTimeSignature
 from flask.cli import AppGroup
 from flask.sessions import SecureCookieSessionInterface
+
+SecureCookie = namedtuple('SecureCookie', 'contents, expiration, message')
+InsecureCookie = namedtuple('InsecureCookie', 'contents, expiration, message')
 
 
 class CookieDecode:
@@ -53,19 +57,33 @@ class CookieDecode:
         def decode(cookie, timestamp):
             """Decode a flask session cookie"""
             try:
-                click.echo(self.safe_decode(cookie, return_timestamp=timestamp))
+                cookie = self.safe_decode(cookie, return_timestamp=timestamp)
+                click.echo(cookie)
             except BadTimeSignature as exc:
-                click.echo(exc)
-                click.echo(self.unsafe_decode(cookie))
+                cookie = self.unsafe_decode(cookie, return_timestamp=timestamp)
+            click.echo(cookie)
 
     def safe_decode(self, cookie, return_timestamp=False):
         """"Validates the signature and loads session the cookie.
         
-        Uses the underlying itsdangerous ``URLSafeTimedSerializer``"""
-        return self.s.loads(cookie, return_timestamp=return_timestamp)
+        Uses the underlying itsdangerous ``URLSafeTimedSerializer``
+        """
+        if return_timestamp:
+            contents, timestamp = self.s.loads(cookie,
+                                               return_timestamp=return_timestamp)
+            return SecureCookie(contents, timestamp.isoformat(), message=None)
+        contents = self.s.loads(cookie)
+        return SecureCookie(contents, expiration=None, message=None)
 
-    def unsafe_decode(self, cookie):
+    def unsafe_decode(self, cookie, return_timestamp=False):
         """"Loads the session cookie even if the signature is invalid."""
-        is_safe, contents = self.s.loads_unsafe(cookie)
-        return contents
-
+        _, contents = self.s.loads_unsafe(cookie)
+        if return_timestamp:
+            return InsecureCookie(
+                contents,
+                expiration=None,
+                message='Expiration is currently unavailable for insecure cookies.')
+        return InsecureCookie(
+            contents,
+            expiration=None,
+            message=None)
