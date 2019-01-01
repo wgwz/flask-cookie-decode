@@ -11,6 +11,7 @@ Tests for `flask_cookie_decode` module.
 import datetime
 import pytest
 from flask_cookie_decode import CookieDecode
+from flask_cookie_decode.cookie_decode import SecureCookie, InsecureCookie
 import itsdangerous
 
 foo_app_secret = 'jlghasdghasdhgahsdg' 
@@ -28,10 +29,10 @@ foo_cookie_invalid_sign = 'eyJhIjoiaGVsbG93b3JsZCJ9.XCfs8A.10WSXgY5JhZJHZ_nCNCYs
 foo_compressed_cookie = '.eJxNkM1KBEEMhF-lmPMwD-BNUEFQj96zPXE20D-z-VkE8d3N7oJ6aZruVH2V-ppouptehnKD7BYN66hDYeKgxj6jjG5cnD0UtMouVqRv4Cq-4L7KKajhzOZyiJr6RmYE3thReeRP504uBunOukZb8P43HY5Dpb4m7iqccwz7UCd0PgUnIg2o4yxnViV8UJEqln5drM430NBOysnKUHkepUSl9F7wMDoXkJbI-cNxRk19FwKVBH5Ki0uwGTvXyhnQkok-OliHLXil0H_RkSVkARcQNFyv61a2oJUWPIUVBsEzflbIgdSm_55MVnI4tz3S9Y2ui59JJb8bbT3Vjy7XIiv20Hy-FfycSbJI2S4L5S2b-60iVzcnW6bvH4O_pXE.XCfoTg.D-eoYNfJpJiyAyBFiUQ4JLUGevQ'
 
 def test_safe_decode(app):
-    assert app.extensions['flask_cookie_decode'].safe_decode(foo_cookie) == {'a': 'helloworld'}
+    assert app.extensions['flask_cookie_decode'].safe_decode(foo_cookie) == SecureCookie({'a': 'helloworld'}, expiration=None, message=None)
 
 def test_unsafe_decode(app):
-    assert app.extensions['flask_cookie_decode'].unsafe_decode(foo_cookie) == {'a': 'helloworld'}
+    assert app.extensions['flask_cookie_decode'].unsafe_decode(foo_cookie) == InsecureCookie({'a': 'helloworld'}, expiration=None, message=None)
 
 def test_safe_decode_invalid_sign(app):
     with pytest.raises(itsdangerous.exc.BadTimeSignature) as excinfo:
@@ -41,9 +42,9 @@ def test_unsafe_decode_invalid_sign(app):
     app.extensions['flask_cookie_decode'].unsafe_decode(foo_cookie_invalid_sign) == {'a': 'helloworld'}
 
 def test_safe_decode_with_timestamp(app):
-    assert app.extensions['flask_cookie_decode'].safe_decode(foo_cookie, return_timestamp=True) == ({'a': 'helloworld'}, datetime.datetime(2018, 12, 29, 21, 53, 52))
+    assert app.extensions['flask_cookie_decode'].safe_decode(foo_cookie, return_timestamp=True) == SecureCookie({'a': 'helloworld'}, expiration=datetime.datetime(2018, 12, 29, 21, 53, 52).isoformat(), message=None)
 
 def test_compressed_safe_decode(app):
-    assert app.extensions['flask_cookie_decode'].safe_decode(foo_compressed_cookie) == {
+    assert app.extensions['flask_cookie_decode'].safe_decode(foo_compressed_cookie) == SecureCookie({
         'a': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum massa eget leo venenatis interdum. Vestibulum ut blandit massa, in porta neque. Aenean viverra facilisis nisl, eget ornare velit vehicula ut. Donec arcu nibh, lacinia ac maximus in, pellentesque non eros. Mauris interdum turpis vel rutrum malesuada. Fusce a tortor eu risus placerat tempus. Nam ut varius magna. Etiam vel purus elit. In et ligula et est viverra egestas.'
-    }
+    }, expiration=None, message=None)
