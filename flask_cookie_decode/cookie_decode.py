@@ -58,7 +58,6 @@ class CookieDecode:
             """Decode a flask session cookie"""
             try:
                 cookie = self.safe_decode(cookie, return_timestamp=timestamp)
-                click.echo(cookie)
             except BadTimeSignature as exc:
                 cookie = self.unsafe_decode(cookie, return_timestamp=timestamp)
             click.echo(cookie)
