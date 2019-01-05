@@ -11,6 +11,7 @@ restview = "*"
 sphinx = "*"
 tox = "*"
 pytest-watch = "*"
+black = "*"
 
 [packages]
 flask-cookie-decode = {editable = true,path = "."}
