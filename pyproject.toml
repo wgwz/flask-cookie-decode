@@ -1,0 +1,4 @@
+[tool.towncrier]
+    package = "flask_cookie_decode"
+    package_dir = "."
+    filename = "HISTORY.rst"
