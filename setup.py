@@ -23,7 +23,7 @@ setup_requirements = [
 
 setup(
     name='flask_cookie_decode',
-    version='0.3.0',
+    version='0.2.0',
     description="Tools for debugging and working with the built-in Flask session cookie",
     long_description=readme + '\n\n' + history,
     author="Kyle Lawlor",
