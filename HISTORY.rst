@@ -4,8 +4,8 @@ History
 
 .. towncrier release notes start
 
-Flask_Cookie_Decode __version__ = '0.3.0' (2019-01-05)
-======================================================
+Flask_Cookie_Decode 0.3.0 (2019-01-05)
+======================================
 
 Bugfixes
 --------
