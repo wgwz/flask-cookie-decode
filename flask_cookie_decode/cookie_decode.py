@@ -112,8 +112,11 @@ class CookieDecode(object):
             return (contents, None)
 
         try:
-            expires_at = (datetime.utcfromtimestamp(date_signed) + timedelta(seconds=self._max_age)).isoformat()
+            expires_at = (
+                datetime.utcfromtimestamp(date_signed)
+                + timedelta(seconds=self._max_age)
+            ).isoformat()
         except TypeError:
             expires_at = (date_signed + timedelta(seconds=self._max_age)).isoformat()
-        
+
         return (contents, expires_at)
