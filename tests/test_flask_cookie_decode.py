@@ -11,40 +11,83 @@ Tests for `flask_cookie_decode` module.
 import datetime
 import pytest
 from flask_cookie_decode import CookieDecode
-from flask_cookie_decode.cookie_decode import SecureCookie, InsecureCookie
+from flask_cookie_decode.cookie_decode import (
+    TrustedCookie,
+    ExpiredCookie,
+    UntrustedCookie,
+)
 import itsdangerous
 
-foo_app_secret = 'jlghasdghasdhgahsdg' 
+foo_app_secret = "jlghasdghasdhgahsdg"
+
 
 @pytest.fixture
 def app():
     app = Flask(__name__)
-    app.config.update({'SECRET_KEY': foo_app_secret})
+    app.config.update({"SECRET_KEY": foo_app_secret})
     cookie = CookieDecode()
     cookie.init_app(app)
     return app
 
-foo_cookie = 'eyJhIjoiaGVsbG93b3JsZCJ9.XCfs8A.v910WSXgY5JhZJHZ_nCNCYsy2I0'
-foo_cookie_invalid_sign = 'eyJhIjoiaGVsbG93b3JsZCJ9.XCfs8A.10WSXgY5JhZJHZ_nCNCYsy2I0'
-foo_compressed_cookie = '.eJxNkM1KBEEMhF-lmPMwD-BNUEFQj96zPXE20D-z-VkE8d3N7oJ6aZruVH2V-ppouptehnKD7BYN66hDYeKgxj6jjG5cnD0UtMouVqRv4Cq-4L7KKajhzOZyiJr6RmYE3thReeRP504uBunOukZb8P43HY5Dpb4m7iqccwz7UCd0PgUnIg2o4yxnViV8UJEqln5drM430NBOysnKUHkepUSl9F7wMDoXkJbI-cNxRk19FwKVBH5Ki0uwGTvXyhnQkok-OliHLXil0H_RkSVkARcQNFyv61a2oJUWPIUVBsEzflbIgdSm_55MVnI4tz3S9Y2ui59JJb8bbT3Vjy7XIiv20Hy-FfycSbJI2S4L5S2b-60iVzcnW6bvH4O_pXE.XCfoTg.D-eoYNfJpJiyAyBFiUQ4JLUGevQ'
+
+foo_cookie = "eyJhIjoiaGVsbG93b3JsZCJ9.XCfs8A.v910WSXgY5JhZJHZ_nCNCYsy2I0"
+foo_cookie_invalid_sign = "eyJhIjoiaGVsbG93b3JsZCJ9.XCfs8A.10WSXgY5JhZJHZ_nCNCYsy2I0"
+foo_compressed_cookie = ".eJxNkM1KBEEMhF-lmPMwD-BNUEFQj96zPXE20D-z-VkE8d3N7oJ6aZruVH2V-ppouptehnKD7BYN66hDYeKgxj6jjG5cnD0UtMouVqRv4Cq-4L7KKajhzOZyiJr6RmYE3thReeRP504uBunOukZb8P43HY5Dpb4m7iqccwz7UCd0PgUnIg2o4yxnViV8UJEqln5drM430NBOysnKUHkepUSl9F7wMDoXkJbI-cNxRk19FwKVBH5Ki0uwGTvXyhnQkok-OliHLXil0H_RkSVkARcQNFyv61a2oJUWPIUVBsEzflbIgdSm_55MVnI4tz3S9Y2ui59JJb8bbT3Vjy7XIiv20Hy-FfycSbJI2S4L5S2b-60iVzcnW6bvH4O_pXE.XCfoTg.D-eoYNfJpJiyAyBFiUQ4JLUGevQ"
+foo_cookie_expired = ".eJyrVkpUslJKzMpISUvMAKIUIJGTnZKWkQjCWcVgVhaQyM4CC2SDFWSBVCjVAgC93hdR.XDFEIg.Sw2azr8qJi8UDWUKyC7fKTDUIcs"
+
+rv_foo_cookie = ({"a": "helloworld"}, "2019-01-29T21:53:52")
+rv_foo_cookie_invalid_sign = ({"a": "helloworld"}, "2019-01-29T16:53:52")
+rv_foo_cookie_expired = (
+    {"a": "ajhdfahfahdhfalkdfhadfhajsdfhadjfhakjdfhajkdhfaljkdfh"},
+    "2019-02-05T23:56:18",
+)
+
 
 def test_safe_decode(app):
-    assert app.extensions['flask_cookie_decode'].safe_decode(foo_cookie) == SecureCookie({'a': 'helloworld'}, expiration=None, message=None)
+    result = app.extensions["flask_cookie_decode"]._safe_decode(foo_cookie)
+    assert result == rv_foo_cookie
+
 
 def test_unsafe_decode(app):
-    assert app.extensions['flask_cookie_decode'].unsafe_decode(foo_cookie) == InsecureCookie({'a': 'helloworld'}, expiration=None, message=None)
+    result = app.extensions["flask_cookie_decode"]._unsafe_decode(foo_cookie)
+    assert result == ({"a": "helloworld"}, None)
+
 
 def test_safe_decode_invalid_sign(app):
     with pytest.raises(itsdangerous.exc.BadTimeSignature) as excinfo:
-        app.extensions['flask_cookie_decode'].safe_decode(foo_cookie_invalid_sign)
+        app.extensions["flask_cookie_decode"]._safe_decode(foo_cookie_invalid_sign)
+
 
 def test_unsafe_decode_invalid_sign(app):
-    app.extensions['flask_cookie_decode'].unsafe_decode(foo_cookie_invalid_sign) == {'a': 'helloworld'}
+    result = app.extensions["flask_cookie_decode"]._unsafe_decode(
+        foo_cookie_invalid_sign
+    )
+    assert result == ({"a": "helloworld"}, None)
 
-def test_safe_decode_with_timestamp(app):
-    assert app.extensions['flask_cookie_decode'].safe_decode(foo_cookie, return_timestamp=True) == SecureCookie({'a': 'helloworld'}, expiration=datetime.datetime(2018, 12, 29, 21, 53, 52).isoformat(), message=None)
 
 def test_compressed_safe_decode(app):
-    assert app.extensions['flask_cookie_decode'].safe_decode(foo_compressed_cookie) == SecureCookie({
-        'a': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum massa eget leo venenatis interdum. Vestibulum ut blandit massa, in porta neque. Aenean viverra facilisis nisl, eget ornare velit vehicula ut. Donec arcu nibh, lacinia ac maximus in, pellentesque non eros. Mauris interdum turpis vel rutrum malesuada. Fusce a tortor eu risus placerat tempus. Nam ut varius magna. Etiam vel purus elit. In et ligula et est viverra egestas.'
-    }, expiration=None, message=None)
+    result = app.extensions["flask_cookie_decode"]._safe_decode(foo_compressed_cookie)
+
+    assert result == (
+        {
+            "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum massa eget leo venenatis interdum. Vestibulum ut blandit massa, in porta neque. Aenean viverra facilisis nisl, eget ornare velit vehicula ut. Donec arcu nibh, lacinia ac maximus in, pellentesque non eros. Mauris interdum turpis vel rutrum malesuada. Fusce a tortor eu risus placerat tempus. Nam ut varius magna. Etiam vel purus elit. In et ligula et est viverra egestas."
+        },
+        "2019-01-29T21:34:06",
+    )
+
+
+def test_decode_cookie_trusted(app):
+    result = app.extensions["flask_cookie_decode"].decode_cookie(foo_cookie)
+    assert result == TrustedCookie(*rv_foo_cookie)
+
+
+def test_decode_cookie_untrusted(app):
+    result = app.extensions["flask_cookie_decode"].decode_cookie(
+        foo_cookie_invalid_sign
+    )
+    assert result == UntrustedCookie(*rv_foo_cookie_invalid_sign)
+
+
+def test_decode_cookie_expired(app):
+    result = app.extensions["flask_cookie_decode"].decode_cookie(foo_cookie_expired)
+    assert result == ExpiredCookie(*rv_foo_cookie_expired)
