@@ -48,7 +48,7 @@ during 404 errors. The example also illustrates how session replay works.
 By default Flask does not expose the ``SECRET_KEY`` anywhere. It is up to you
 the developer to keep it that way!
 
-.. _`Here is an example`: https://terryvogelsang.tech/MITRECTF2018-my-flask-app/n
+.. _`Here is an example`: https://terryvogelsang.tech/MITRECTF2018-my-flask-app/
 
 Usage
 =====
