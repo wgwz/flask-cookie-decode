@@ -7,7 +7,7 @@ python:
 install: pip install -U tox
 script: tox -e pytest
 before_script:
-    - export TZ=Etc/UTC
+    - export TZ=America/New_York
     - date
 deploy:
   provider: pypi
