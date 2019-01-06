@@ -12,6 +12,7 @@ sphinx = "*"
 tox = "*"
 pytest-watch = "*"
 black = "*"
+towncrier = "*"
 
 [packages]
 flask-cookie-decode = {editable = true,path = "."}
