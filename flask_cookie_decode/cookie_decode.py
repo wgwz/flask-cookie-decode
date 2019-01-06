@@ -79,14 +79,13 @@ class CookieDecode:
         """
         try:
             self._timestamp_signer.unsign(cookie, max_age=self._max_age)
-        except SignatureExpired as exc:
+        except SignatureExpired as expired:
             return ExpiredCookie(
-                *self._unsafe_decode(cookie, date_signed=exc.date_signed)
+                *self._unsafe_decode(cookie, date_signed=expired.date_signed)
             )
-        except BadTimeSignature as exc:
-            date_signed = exc.date_signed
+        except BadTimeSignature as bad_sign:
             return UntrustedCookie(
-                *self._unsafe_decode(cookie, date_signed=date_signed)
+                *self._unsafe_decode(cookie, date_signed=bad_sign.date_signed)
             )
         return TrustedCookie(*self._safe_decode(cookie))
 
@@ -111,7 +110,7 @@ class CookieDecode:
         _, contents = self._signing_serializer.loads_unsafe(cookie)
 
         try:
-            expires_at = (date_signed + timedelta(seconds=self._max_age)).isoformat()
+            expires_at = (datetime.fromtimestamp(date_signed) + timedelta(seconds=self._max_age)).isoformat()
         except TypeError:
             expires_at = None
 
