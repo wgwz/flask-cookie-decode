@@ -108,10 +108,12 @@ class CookieDecode(object):
 
         The data loaded here is *untrusted*."""
         _, contents = self._signing_serializer.loads_unsafe(cookie)
+        if date_signed is None:
+            return (contents, None)
 
         try:
-            expires_at = (datetime.fromtimestamp(date_signed) + timedelta(seconds=self._max_age)).isoformat()
+            expires_at = (datetime.utcfromtimestamp(date_signed) + timedelta(seconds=self._max_age)).isoformat()
         except TypeError:
-            expires_at = None
-
+            expires_at = (date_signed + timedelta(seconds=self._max_age)).isoformat()
+        
         return (contents, expires_at)
