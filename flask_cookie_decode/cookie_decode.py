@@ -12,7 +12,7 @@ UntrustedCookie = namedtuple("UntrustedCookie", "contents, expiration")
 ExpiredCookie = namedtuple("ExpiredCookie", "contents, expiration")
 
 
-class CookieDecode:
+class CookieDecode(object):
     """This class is used to inspect the signed-cookie session that Flask
     ships with.  Initializing this class follows the usual procedure::
 
@@ -72,7 +72,7 @@ class CookieDecode:
         the signature is valid, the cookie will be loaded and marked as "safe".
         If the signature is invalid, the cookie will be loaded but it will
         be marked as "unsafe".
-        
+
         "Unsafe" here means that content of the cookie has not been signed by
         the correct secret key. That or the signature of the cookie itself is
         malformed or tampered with.
@@ -104,8 +104,8 @@ class CookieDecode:
     def _unsafe_decode(self, cookie, date_signed=None):
         """"Ignoring the signature of the session cookies decode the cookies
         payload and the compute the expiration based off of the Flask application
-        instances PERMANENT_SESSION_LIFETIME config value. 
-        
+        instances PERMANENT_SESSION_LIFETIME config value.
+
         The data loaded here is *untrusted*."""
         _, contents = self._signing_serializer.loads_unsafe(cookie)
 
