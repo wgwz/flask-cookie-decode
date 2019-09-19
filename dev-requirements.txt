@@ -1,0 +1,8 @@
+bumpversion
+twine
+pytest
+sphinx
+tox
+black
+towncrier
+pre-commit
