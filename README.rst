@@ -26,7 +26,7 @@ By default the Flask session uses a signed cookie to store its data. The Flask
 application signs the cookie using its ``SECRET_KEY``. This provides the Flask
 application a way to detect any tampering to the session data. If the application
 is indeed using a secret key and secure hashing algorithm, the session signature
-will be unique to application. 
+will be unique to application.
 
 For more on the topic of the Flask session see these references:
 
@@ -73,7 +73,7 @@ Example Flask app
 
 See `examples/app.py <https://github.com/wgwz/flask-cookie-decode/blob/master/examples/app.py>`_:
 
-.. code-block:: python 
+.. code-block:: python
 
     from flask import Flask, jsonify, session, request
     from flask_cookie_decode import CookieDecode
