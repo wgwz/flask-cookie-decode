@@ -5,3 +5,4 @@ sphinx
 tox
 black
 towncrier
+pre-commit
