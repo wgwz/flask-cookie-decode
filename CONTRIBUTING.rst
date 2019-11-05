@@ -73,6 +73,15 @@ Ready to contribute? Here's how to set up `flask_cookie_decode` for local develo
     $ pipenv install --dev
     $ pipenv shell
 
+   If you wish to install some helpful tools for development use the ``dev-requirements.txt``::
+
+    $ pip install -r dev-requirements.txt
+
+   For example if you want to have the tests run automatically each time a file changes you can make use of ``pytest-watch``::
+
+   $ cd flask-cookie-decode
+   $ ptw
+
 4. Create a branch for local development::
 
     $ git checkout -b name-of-your-bugfix-or-feature
@@ -117,6 +126,10 @@ $ pytest tests::test_flask_cookie_decode
 
 Making a release
 ----------------
+
+Using towncrier for release notes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+https://pypi.org/project/towncrier/
 
 Automated build process
 ~~~~~~~~~~~~~~~~~~~~~~~

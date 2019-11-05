@@ -25,6 +25,7 @@ setup(
     url="https://github.com/wgwz/flask-cookie-decode",
     packages=find_packages(),
     include_package_data=True,
+    entry_points={"console_scripts": ["fcd = flask_cookie_decode.__main__:main"]},
     install_requires=requirements,
     license="MIT license",
     zip_safe=False,
