@@ -95,7 +95,10 @@ Examples using the CLI:
 
 This extension will ship two CLI interfaces for dealing with decoding cookies. One requires a Flask application instance for the application you are wanting to debug. This method has the added benefit that the signature of the cookie can be verified, as your application instance has the ``SECRET_KEY`` used to sign the cookie. This method returns decoded cookie objects which can be seen in the examples below. This method can return a few different types of cookie objects depending on the state of the cookie. Please keep in mind that this extension provides only a thin-wrapper around the logic Flask uses to deal with cookies.
 
-The second CLI interface is a straightforward tool for simply decoding cookies. It cannot validate the signatures on the cookies or check the expirations, it can simply be used to decode a Flask session cookie without having the configure the application instance. This is for debugging purposes only, if you are going to ever rely on the state of this cookie for anything important it should be used only after being validated.
+The second CLI interface is a tool for decoding cookies without the app secret. It cannot validate the signatures on the cookies or check the expirations and does not require the application instance like the other CLI. Intended for debugging purposes only.
+
+CLI attached to application instance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. A cookie with a valid signature:
 
@@ -120,6 +123,16 @@ The second CLI interface is a straightforward tool for simply decoding cookies. 
     $ export FLASK_APP=app.py
     $ flask cookie decode eyJhIjoiYXNkYXNkamtqYXNkIn0.XCkk1Q.tTPu2Zhvn9KxgkP35ERAgyd8MzA
     ExpiredCookie(contents={'a': 'asdasdjkjasd'}, expiration='2019-01-30T20:04:37')
+
+CLI that ships with package which only decodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ fcd decode eyJhIjoiYXNkYXNkamtqYXNkIn0
+    {
+      "a": "asdasdjkjasd"
+    }
 
 Documentation
 =============
