@@ -37,6 +37,7 @@ For more on the topic of the Flask session see these references:
 .. _`How Secure Is The Flask User Session?`: https://blog.miguelgrinberg.com/post/how-secure-is-the-flask-user-session
 .. _`Quickstart for Flask Sessions`: http://flask.pocoo.org/docs/1.0/quickstart/#sessions
 .. _`API Docs for Flask Sessions`: http://flask.pocoo.org/docs/1.0/api/#sessions
+.. _`Flask Session Cookie Decoder`: https://www.kirsle.net/wizards/flask-session.cgi
 
 Disclaimer: Keep your SECRET_KEY, secret!
 -----------------------------------------
@@ -92,6 +93,13 @@ See `examples/app.py <https://github.com/wgwz/flask-cookie-decode/blob/master/ex
 Examples using the CLI:
 -----------------------
 
+This extension will ship two CLI interfaces for dealing with decoding cookies. One requires a Flask application instance for the application you are wanting to debug. This method has the added benefit that the signature of the cookie can be verified, as your application instance has the ``SECRET_KEY`` used to sign the cookie. This method returns decoded cookie objects which can be seen in the examples below. This method can return a few different types of cookie objects depending on the state of the cookie. Please keep in mind that this extension provides only a thin-wrapper around the logic Flask uses to deal with cookies.
+
+The second CLI interface is a tool for decoding cookies without the app secret. It cannot validate the signatures on the cookies or check the expirations and does not require the application instance like the other CLI. Intended for debugging purposes only.
+
+CLI attached to application instance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 1. A cookie with a valid signature:
 
 .. code-block:: bash
@@ -115,6 +123,16 @@ Examples using the CLI:
     $ export FLASK_APP=app.py
     $ flask cookie decode eyJhIjoiYXNkYXNkamtqYXNkIn0.XCkk1Q.tTPu2Zhvn9KxgkP35ERAgyd8MzA
     ExpiredCookie(contents={'a': 'asdasdjkjasd'}, expiration='2019-01-30T20:04:37')
+
+CLI that ships with package which only decodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    $ fcd decode eyJhIjoiYXNkYXNkamtqYXNkIn0
+    {
+      "a": "asdasdjkjasd"
+    }
 
 Documentation
 =============
