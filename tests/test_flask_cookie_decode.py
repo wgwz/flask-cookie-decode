@@ -9,7 +9,9 @@ test_flask_cookie_decode
 Tests for `flask_cookie_decode` module.
 """
 import datetime
+from click.testing import CliRunner
 import pytest
+from flask_cookie_decode.__main__ import decode
 from flask_cookie_decode import CookieDecode
 from flask_cookie_decode.cookie_decode import (
     TrustedCookie,
@@ -19,6 +21,13 @@ from flask_cookie_decode.cookie_decode import (
 import itsdangerous
 
 foo_app_secret = "jlghasdghasdhgahsdg"
+
+
+def test_fcd():
+    runner = CliRunner()
+    res = runner.invoke(decode, ["eyJhIjoiYXNkYXNkamtqYXNkIn0"])
+    assert res.exit_code == 0
+    assert res.output == '{\n  "a": "asdasdjkjasd"\n}\n'
 
 
 @pytest.fixture

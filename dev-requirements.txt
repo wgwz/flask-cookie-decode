@@ -6,3 +6,4 @@ tox
 black
 towncrier
 pre-commit
+pytest-watch
