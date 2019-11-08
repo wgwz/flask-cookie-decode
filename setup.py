@@ -11,7 +11,7 @@ with open("HISTORY.rst") as history_file:
 
 requirements = ["Flask>=0.11"]
 
-test_requirements = ["pytest"]
+test_requirements = ["pytest", "click"]
 
 setup_requirements = ["pytest-runner"]
 
