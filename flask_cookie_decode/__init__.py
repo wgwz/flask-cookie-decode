@@ -13,7 +13,7 @@
 
 __author__ = """Kyle Lawlor"""
 __email__ = "klawlor419@gmail.com"
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 
 from .cookie_decode import CookieDecode
