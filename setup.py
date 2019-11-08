@@ -1,7 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import os
+import codecs
+import re
 from setuptools import setup, find_packages
+
+here = os.path.abspath(os.path.dirname(__file__))
+
+
+def read(*parts):
+    with codecs.open(os.path.join(here, *parts), "r") as fp:
+        return fp.read()
+
+
+def find_version(*file_paths):
+    version_file = read(*file_paths)
+    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError("Unable to find version string.")
+
 
 with open("README.rst") as readme_file:
     readme = readme_file.read()
@@ -17,7 +35,7 @@ setup_requirements = ["pytest-runner"]
 
 setup(
     name="flask_cookie_decode",
-    version="0.3.0",
+    version=find_version("flask_cookie_decode", "__init__.py"),
     description="Tools for debugging and working with the built-in Flask session cookie",
     long_description=readme + "\n\n" + history,
     author="Kyle Lawlor",
@@ -43,5 +61,6 @@ setup(
         "Programming Language :: Python :: 3.6",
     ],
     tests_require=test_requirements,
+    extras_require={"test": test_requirements},
     setup_requires=setup_requirements,
 )
