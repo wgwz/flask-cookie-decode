@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import flask_cookie_decode
 from setuptools import setup, find_packages
 
 with open("README.rst") as readme_file:
@@ -17,7 +17,7 @@ setup_requirements = ["pytest-runner"]
 
 setup(
     name="flask_cookie_decode",
-    version="0.3.0",
+    version=flask_cookie_decode.__version__,
     description="Tools for debugging and working with the built-in Flask session cookie",
     long_description=readme + "\n\n" + history,
     author="Kyle Lawlor",
