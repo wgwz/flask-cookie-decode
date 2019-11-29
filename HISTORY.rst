@@ -1,8 +1,16 @@
-=======
 History
-=======
+#######
 
 .. towncrier release notes start
+
+Flask_Cookie_Decode 0.3.1 (2019-11-29)
+======================================
+
+Features
+--------
+
+- Add the `fcd` CLI for reading cookies without a flask app. (#8)
+
 
 Flask_Cookie_Decode 0.3.0 (2019-01-05)
 ======================================
