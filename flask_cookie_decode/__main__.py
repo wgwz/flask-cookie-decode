@@ -12,7 +12,7 @@ def main():
 @click.argument("cookie")
 def decode(cookie):
     s = URLSafeSerializer("foo")
-    if "." in cookie:
+    if not cookie.startswith("."):
         to_load = cookie.split(".")[0]
     else:
         to_load = cookie
