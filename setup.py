@@ -38,6 +38,7 @@ setup(
     version=find_version("flask_cookie_decode", "__init__.py"),
     description="Tools for debugging and working with the built-in Flask session cookie",
     long_description=readme + "\n\n" + history,
+    long_description_content_type="text/x-rst",
     author="Kyle Lawlor",
     author_email="klawlor419@gmail.com",
     url="https://github.com/wgwz/flask-cookie-decode",
