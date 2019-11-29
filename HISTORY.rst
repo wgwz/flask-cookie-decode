@@ -3,6 +3,15 @@ History
 
 .. towncrier release notes start
 
+Flask_Cookie_Decode 0.3.2 (2019-11-29)
+======================================
+
+Bugfixes
+--------
+
+- The `fcd` client now handles compressed cookies. (#10)
+
+
 Flask_Cookie_Decode 0.3.1 (2019-11-29)
 ======================================
 
