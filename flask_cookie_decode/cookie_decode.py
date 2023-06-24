@@ -5,7 +5,6 @@ from itsdangerous.timed import TimestampSigner
 from itsdangerous.exc import BadTimeSignature, SignatureExpired
 from flask.cli import AppGroup
 from flask.sessions import SecureCookieSessionInterface
-from flask.helpers import total_seconds
 
 TrustedCookie = namedtuple("TrustedCookie", "contents, expiration")
 UntrustedCookie = namedtuple("UntrustedCookie", "contents, expiration")
@@ -51,7 +50,10 @@ class CookieDecode(object):
         self._timestamp_signer = TimestampSigner(
             app.secret_key, key_derivation="hmac", salt="cookie-session"
         )
-        self._max_age = total_seconds(app.permanent_session_lifetime)
+        if isinstance(app.permanent_session_lifetime, timedelta):
+            self._max_age = app.permanent_session_lifetime.total_seconds()
+        else:
+            self.max_age = app.permanent_session_lifetime
 
         cookie_cli = AppGroup(
             "cookie", help="Tools to inspect the Flask session cookie."
@@ -90,7 +92,7 @@ class CookieDecode(object):
         return TrustedCookie(*self._safe_decode(cookie))
 
     def _safe_decode(self, cookie):
-        """"Validate the signature in the session cookie, decode the cookie
+        """Validate the signature in the session cookie, decode the cookie
         payload and compute the expiration date based off of the Flask application
         instances PERMANENT_SESSION_LIFETIME config value.
         """
@@ -102,7 +104,7 @@ class CookieDecode(object):
         return (contents, expires_at)
 
     def _unsafe_decode(self, cookie, date_signed=None):
-        """"Ignoring the signature of the session cookies decode the cookies
+        """Ignoring the signature of the session cookies decode the cookies
         payload and the compute the expiration based off of the Flask application
         instances PERMANENT_SESSION_LIFETIME config value.
 

@@ -67,7 +67,8 @@ def test_fcd_compress(fcd_invoke):
 
 def test_safe_decode(app):
     result = app.extensions["flask_cookie_decode"]._safe_decode(foo_cookie)
-    assert result == rv_foo_cookie
+    assert result[0] == rv_foo_cookie[0]
+    assert result[1].replace("+00:00", "") == rv_foo_cookie[1]
 
 
 def test_unsafe_decode(app):
@@ -89,27 +90,30 @@ def test_unsafe_decode_invalid_sign(app):
 
 def test_compressed_safe_decode(app):
     result = app.extensions["flask_cookie_decode"]._safe_decode(foo_compressed_cookie)
-
-    assert result == (
-        {
-            "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum massa eget leo venenatis interdum. Vestibulum ut blandit massa, in porta neque. Aenean viverra facilisis nisl, eget ornare velit vehicula ut. Donec arcu nibh, lacinia ac maximus in, pellentesque non eros. Mauris interdum turpis vel rutrum malesuada. Fusce a tortor eu risus placerat tempus. Nam ut varius magna. Etiam vel purus elit. In et ligula et est viverra egestas."
-        },
-        "2019-01-29T21:34:06",
-    )
+    assert result[0] == {
+        "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum massa eget leo venenatis interdum. Vestibulum ut blandit massa, in porta neque. Aenean viverra facilisis nisl, eget ornare velit vehicula ut. Donec arcu nibh, lacinia ac maximus in, pellentesque non eros. Mauris interdum turpis vel rutrum malesuada. Fusce a tortor eu risus placerat tempus. Nam ut varius magna. Etiam vel purus elit. In et ligula et est viverra egestas."
+    }
+    assert result[1].replace("+00:00", "") == "2019-01-29T21:34:06"
 
 
 def test_decode_cookie_trusted(app):
     result = app.extensions["flask_cookie_decode"].decode_cookie(foo_cookie)
-    assert result == TrustedCookie(*rv_foo_cookie)
+    expect = TrustedCookie(*rv_foo_cookie)
+    assert result.contents == expect.contents
+    assert result.expiration.replace("+00:00", "") == expect.expiration
 
 
 def test_decode_cookie_untrusted(app):
     result = app.extensions["flask_cookie_decode"].decode_cookie(
         foo_cookie_invalid_sign
     )
-    assert result == UntrustedCookie(*rv_foo_cookie_invalid_sign)
+    expect = UntrustedCookie(*rv_foo_cookie_invalid_sign)
+    assert result.contents == expect.contents
+    assert result.expiration.replace("+00:00", "") == expect.expiration
 
 
 def test_decode_cookie_expired(app):
     result = app.extensions["flask_cookie_decode"].decode_cookie(foo_cookie_expired)
-    assert result == ExpiredCookie(*rv_foo_cookie_expired)
+    expect = ExpiredCookie(*rv_foo_cookie_expired)
+    assert result.contents == expect.contents
+    assert result.expiration.replace("+00:00", "") == expect.expiration
