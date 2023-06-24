@@ -7,3 +7,4 @@ black
 towncrier
 pre-commit
 pytest-watch
+quart

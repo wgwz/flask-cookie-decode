@@ -12,5 +12,10 @@ flask_decode.init_app(app)
 @app.route("/")
 def index():
     a = request.args.get("a")
-    session["a"] = a
+    if a:
+        session["a"] = a
     return jsonify(dict(session))
+
+
+if __name__ == "__main__":
+    app.run()
