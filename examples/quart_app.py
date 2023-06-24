@@ -1,3 +1,4 @@
+import quart.flask_patch
 from quart import Quart, jsonify, session, request
 from flask_cookie_decode import CookieDecode
 
@@ -8,8 +9,14 @@ app.config.update(
 flask_decode = CookieDecode()
 flask_decode.init_app(app)
 
-@app.route('/')
+
+@app.route("/")
 async def index():
     a = request.args.get("a")
-    session["a"] = a
+    if a:
+        session["a"] = a
     return jsonify(dict(session))
+
+
+if __name__ == "__main__":
+    app.run()
