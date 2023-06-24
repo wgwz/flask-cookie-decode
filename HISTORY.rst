@@ -3,6 +3,15 @@ History
 
 .. towncrier release notes start
 
+Flask_Cookie_Decode 0.4.0 (2023-06-23)
+======================================
+
+Bugfixes
+--------
+
+- remove dependency on flask.helpers.total_seconds (#13)
+
+
 Flask_Cookie_Decode 0.3.2 (2019-11-29)
 ======================================
 
