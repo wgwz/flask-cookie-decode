@@ -1,11 +1,9 @@
 language: python
 python:
-- 3.6
-- 3.5
-- 3.4
-- 2.7
+  - 3.8
+  - 3.9
 install: pip install -U tox
-script: tox -e pytest
+script: tox r
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
@@ -14,4 +12,4 @@ deploy:
     secure: cDWEDUiqt43/MQ3mKM8mxGp36BdYY80SnwM8s5BSLFAEsQBH6pttPRLT6pNZ8aHUH81rbZu5sUE1pn3iQKbsACdrUIxbVyMJKREzyZr5hlqmax68bWt/ZfJzInq6I3Y/xf/QNMHZivum/ZO8mUmh8EUBqyCY0JEM3s6HH+c5U2wuuax6IQDpa50dJ3OVbKHG7avcgwbEC0gs8YTnT5b6c4Rzf7CM6yRGCvZBMCzBjC/VjWO7LY6quzHvcpOxCGhtSg8fypT1CoHeTkT9iowrAJPJuxQ3eYK5wECQQrkCl1cuXqj5iaataaGkqads4NIpJPhzHgMzkDid+cTTTDc240FKS9E0AVWEPtDUUMkpNoAPNn+KtYK0mkVPZi9kc/XVF8WovCexjBxj2NB8FLAXX/8IPnvgm+0L4P5GiwfmJqVYDlZtfrDssu1zFmVVO57j+r3grBrdD4bMIo3K7cX1qypH1f0lYqUc+vv3LA0h9S1l8LNGyQOyJ+BLDAO+7KafspxOliZgH9D9vUO60VeqPqTT0JpPzCUoqmCRz5197k7laEygtghfa/bOS2cCEyRKRT0w8mnmwaJv3u8dixyLS6FG+QY7tNWpHq5xpj0n5g74tA5NfAknF3F2sRrloeeumrpaabhzKCEaIbiTm9dt2PvKqYqUHK3/AUV/czMyPqU=
   on:
     tags: true
-    python: 3.5
+    python: 3.9
