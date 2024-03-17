@@ -1,8 +1,15 @@
 flask-cookie-decode
 ###################
 
-.. image:: https://travis-ci.com/wgwz/flask-cookie-decode.svg?branch=master
-    :target: https://travis-ci.com/wgwz/flask-cookie-decode
+.. list-table::
+
+    * - .. image:: https://github.com/wgwz/flask-cookie-decode/actions/workflows/action.yml/badge.svg
+          :target: https://github.com/wgwz/flask-cookie-decode/actions
+          :alt: Github Build Status
+    
+    * - .. image:: https://readthedocs.org/projects/flask-cookie-decode/badge/?version=latest
+          :target: https://flask-cookie-decode.readthedocs.io/en/latest/?badge=latest
+          :alt: Documentation Status
 
 .. contents::
 

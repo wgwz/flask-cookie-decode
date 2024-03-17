@@ -67,11 +67,11 @@ Ready to contribute? Here's how to set up `flask_cookie_decode` for local develo
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
     $ mkvirtualenv flask_cookie_decode
+    $ python3 -m virtualenv venv  # alternative way to create the virtualenv
+    $ python3 -m venv venv  # alternative way to create the virtualenv
+    $ . venv/bin/activate  # if not using virtualenvwrapper
     $ cd flask-cookie-decode/
     $ pip install -e .
-
-    $ pipenv install --dev
-    $ pipenv shell
 
    If you wish to install some helpful tools for development use the ``dev-requirements.txt``::
 
@@ -91,7 +91,8 @@ Ready to contribute? Here's how to set up `flask_cookie_decode` for local develo
 5. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
 
     $ flake8 flask_cookie_decode tests
-    $ python setup.py test or pytest
+    $ python setup.py test
+    $ pytest  # alternative way to run the tests
     $ tox
 
    To get flake8 and tox, just pip install them into your virtualenv.
