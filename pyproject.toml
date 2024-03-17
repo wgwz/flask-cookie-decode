@@ -2,3 +2,6 @@
     package = "flask_cookie_decode"
     package_dir = "."
     filename = "HISTORY.rst"
+
+[tool.towncrier.fragment.chore]
+name = "Chores"

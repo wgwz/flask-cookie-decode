@@ -3,6 +3,16 @@ History
 
 .. towncrier release notes start
 
+Flask_Cookie_Decode 0.4.1 (2024-03-17)
+======================================
+
+Chores
+------
+
+- Added a github action that runs a test suite with variety of Python and Flask versions.
+  The github action also builds and deploys the package to Pypi. (actions)
+
+
 Flask_Cookie_Decode 0.4.0 (2023-06-23)
 ======================================
 
