@@ -3,7 +3,7 @@ History
 
 .. towncrier release notes start
 
-Flask_Cookie_Decode 0.4.1 (2025-03-09)
+Flask_Cookie_Decode 0.4.2 (2025-03-09)
 ======================================
 
 Chores
