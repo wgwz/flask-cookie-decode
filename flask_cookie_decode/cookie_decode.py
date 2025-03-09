@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone 
+from datetime import datetime, timedelta, timezone
 from collections import namedtuple
 import click
 from itsdangerous.timed import TimestampSigner
