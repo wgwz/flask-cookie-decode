@@ -126,26 +126,20 @@ Making a release
 
 Using towncrier for release notes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-https://pypi.org/project/towncrier/
 
-Automated build process
-~~~~~~~~~~~~~~~~~~~~~~~
+https://towncrier.readthedocs.io/en/stable/tutorial.html
 
-Notes on the initial set up travis-ci.com::
+```bash
+echo "note" >> flask_cookie_decode/newsfragments/17.chore
+towncrier build --draft
+towncrier
+```
 
-    $ travis logout
-    $ travis login --pro
-    $ travis encrypt --add deploy.password <pypi-password> --com  # within the flask-cookie-decode repo
-
-See travis.rb_, dpl_ and `travis encryption keys`_ for more on the travis set up.
-
-.. _travis.rb: https://github.com/travis-ci/travis.rb#installation
-.. _dpl: https://github.com/travis-ci/dpl#pypi
-.. _travis encryption keys: https://docs.travis-ci.com/user/encryption-keys/
+Creating a new version
+~~~~~~~~~~~~~~~~~~~~~~
 
 1. Bump the version and create the tag::
 
-    $ git checkout master
     $ bumpversion <major,minor,patch>
     $ git tag -s v<latest-version> -m "tag message"
 
