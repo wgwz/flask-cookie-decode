@@ -3,6 +3,17 @@ History
 
 .. towncrier release notes start
 
+Flask_Cookie_Decode 0.4.2 (2025-03-09)
+======================================
+
+Chores
+------
+
+- Fix: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated
+  Thanks to @miguelgrinberg for the blog post:
+  https://blog.miguelgrinberg.com/post/it-s-time-for-a-change-datetime-utcnow-is-now-deprecated (#17)
+
+
 Flask_Cookie_Decode 0.4.1 (2024-03-17)
 ======================================
 

@@ -64,14 +64,12 @@ Ready to contribute? Here's how to set up `flask_cookie_decode` for local develo
 
     $ git clone git@github.com:your_name_here/flask-cookie-decode.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+3. Install your local copy into a virtualenv::
 
-    $ mkvirtualenv flask_cookie_decode
-    $ python3 -m virtualenv venv  # alternative way to create the virtualenv
-    $ python3 -m venv venv  # alternative way to create the virtualenv
+    $ python3 -m virtualenv venv
     $ . venv/bin/activate  # if not using virtualenvwrapper
     $ cd flask-cookie-decode/
-    $ pip install -e .
+    $ pip install -e .[test]
 
    If you wish to install some helpful tools for development use the ``dev-requirements.txt``::
 
@@ -94,8 +92,6 @@ Ready to contribute? Here's how to set up `flask_cookie_decode` for local develo
     $ python setup.py test
     $ pytest  # alternative way to run the tests
     $ tox
-
-   To get flake8 and tox, just pip install them into your virtualenv.
 
 6. Commit your changes and push your branch to GitHub::
 
@@ -130,26 +126,20 @@ Making a release
 
 Using towncrier for release notes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-https://pypi.org/project/towncrier/
 
-Automated build process
-~~~~~~~~~~~~~~~~~~~~~~~
+https://towncrier.readthedocs.io/en/stable/tutorial.html
 
-Notes on the initial set up travis-ci.com::
+```bash
+echo "note" >> flask_cookie_decode/newsfragments/17.chore
+towncrier build --draft
+towncrier
+```
 
-    $ travis logout
-    $ travis login --pro
-    $ travis encrypt --add deploy.password <pypi-password> --com  # within the flask-cookie-decode repo
-
-See travis.rb_, dpl_ and `travis encryption keys`_ for more on the travis set up.
-
-.. _travis.rb: https://github.com/travis-ci/travis.rb#installation
-.. _dpl: https://github.com/travis-ci/dpl#pypi
-.. _travis encryption keys: https://docs.travis-ci.com/user/encryption-keys/
+Creating a new version
+~~~~~~~~~~~~~~~~~~~~~~
 
 1. Bump the version and create the tag::
 
-    $ git checkout master
     $ bumpversion <major,minor,patch>
     $ git tag -s v<latest-version> -m "tag message"
 

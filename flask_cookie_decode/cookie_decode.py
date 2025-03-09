@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from collections import namedtuple
 import click
 from itsdangerous.timed import TimestampSigner
@@ -115,7 +115,7 @@ class CookieDecode(object):
 
         try:
             expires_at = (
-                datetime.utcfromtimestamp(date_signed)
+                datetime.fromtimestamp(date_signed, timezone.utc)
                 + timedelta(seconds=self._max_age)
             ).isoformat()
         except TypeError:
