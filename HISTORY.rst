@@ -3,6 +3,15 @@ History
 
 .. towncrier release notes start
 
+Flask_Cookie_Decode 0.4.3 (2025-03-09)
+======================================
+
+Chores
+------
+
+- Re-releasing v0.4.2 as v0.4.3 (release)
+
+
 Flask_Cookie_Decode 0.4.2 (2025-03-09)
 ======================================
 
